@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      var consentCookie = document.cookie.split(";").map(function (item) { return item.trim(); }).find(function (item) { return item.indexOf("sdb_analytics_consent=") === 0; });
+      window.gtag("consent", "default", { analytics_storage: consentCookie === "sdb_analytics_consent=granted" ? "granted" : "denied", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MFMP9Z2P');</script>
+    <!-- End Google Tag Manager -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f3f0" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#101010" media="(prefers-color-scheme: dark)">
+    <meta name="description" content="Aprenda a criar uma skill para Claude Code com SKILL.md, metadados claros e instruções focadas em uma tarefa.">
+    <link rel="canonical" href="https://skillsdebolso.github.io/criar-skills-claude-code/">
+    <title>Como criar uma skill no Claude Code | Skills de Bolso</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../guias.js" defer></script>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MFMP9Z2P" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="article-shell">
+      <header class="article-header"><a class="article-brand" href="../">SKILLS DE BOLSO</a><a class="article-home" href="../">Página inicial</a></header>
+      <main class="article-main">
+        <p class="article-kicker">Guia prático</p>
+        <h1>Como criar uma skill no Claude Code</h1>
+        <p class="article-deck">Transforme um procedimento que você repete em instruções que Claude Code pode consultar quando forem úteis.</p>
+        <p class="article-meta">Conteúdo conferido em <time datetime="2026-09-27">27 de setembro de 2026</time>.</p>
+        <article class="article-content">
+          <p>Uma skill começa com uma pasta e um arquivo <code>SKILL.md</code>. Nele você explica o que a skill faz, quando ela deve ser usada e quais passos seguir. Scripts, referências e modelos são opcionais: inclua-os somente se ajudarem o fluxo.</p>
+
+          <h2>1. Escolha um trabalho repetido</h2>
+          <p>Comece por uma tarefa concreta, como organizar notas em resumo, decisões e próximos passos. Uma skill focada em um trabalho tende a ser mais fácil de entender e ajustar do que uma que tenta resolver várias coisas diferentes.</p>
+
+          <h2>2. Crie a pasta e o arquivo</h2>
+          <p>Para disponibilizar a skill apenas em um projeto, crie uma pasta em <code>.claude/skills/</code> dentro do repositório. A estrutura mínima fica assim:</p>
+          <pre><code>.claude/
+└── skills/
+    └── resumir-notas/
+        └── SKILL.md</code></pre>
+
+          <h2>3. Escreva os metadados e as instruções</h2>
+          <p>O arquivo começa com metadados YAML entre duas linhas com três hífens. Use uma descrição que diga claramente quando Claude deve escolher essa skill. Depois, escreva os passos em Markdown.</p>
+          <pre><code>---
+name: resumir-notas
+description: Organiza notas fornecidas pelo usuário em resumo, decisões e tarefas. Use quando pedirem para estruturar notas de reunião.
+---
+
+# Organizar notas
+
+1. Leia todas as notas fornecidas.
+2. Separe resumo, decisões e tarefas.
+3. Não invente participantes, prazos ou decisões ausentes.
+4. Marque como "não informado" o que estiver faltando.</code></pre>
+
+          <h2>4. Teste e melhore</h2>
+          <p>Abra Claude Code no projeto e faça um pedido que deveria acionar a skill. Confira se ela foi selecionada e se as instruções produziram o formato esperado. Teste também um pedido parecido que não deveria acioná-la. Ajuste a descrição se ela for acionada em situações erradas ou não for encontrada quando necessária.</p>
+          <p>Se a tarefa exigir arquivos de referência ou scripts, organize-os em subpastas e explique no <code>SKILL.md</code> quando devem ser usados. Antes de executar código vindo de terceiros, revise o que ele faz.</p>
+
+          <h2>Próximos passos</h2>
+          <p>Veja também <a href="../skills-claude-code/">o que são skills no Claude Code</a> e <a href="../instalar-skills-claude-code/">como instalar uma skill que você já tem</a>.</p>
+          <p>As opções e os recursos podem mudar entre versões. Para conferir o formato atualizado, consulte a <a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener noreferrer">documentação oficial do Claude Code</a>.</p>
+          <nav class="article-nav" aria-label="Guias relacionados">
+            <a href="../skills-claude-code/">O que são skills no Claude Code? →</a>
+            <a href="../instalar-skills-claude-code/">Como instalar skills no Claude Code →</a>
+            <a href="../skills-codex/">Skills no Codex →</a>
+          </nav>
+        </article>
+      </main>
+      <footer class="article-footer"><span>© 2026 SKILLS DE BOLSO</span><button type="button" id="consent-settings">Configurar analytics</button><a href="../#privacidade">Privacidade e analytics</a></footer>
+    </div>
+    <aside class="consent-panel" id="consent-panel" aria-labelledby="consent-title" hidden>
+      <div class="consent-copy"><h2 id="consent-title">Analytics, só se você quiser.</h2><p>Podemos usar o Google Analytics para entender visitas e cliques. Sua escolha não afeta o acesso ao site. <a href="../#privacidade">Leia o aviso de privacidade.</a></p></div>
+      <div class="consent-actions"><button type="button" data-consent="denied">Rejeitar</button><button type="button" data-consent="granted">Aceitar</button></div>
+    </aside>
+  </body>
+</html>

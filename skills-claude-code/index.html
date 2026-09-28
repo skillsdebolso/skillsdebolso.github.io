@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      var consentCookie = document.cookie.split(";").map(function (item) { return item.trim(); }).find(function (item) { return item.indexOf("sdb_analytics_consent=") === 0; });
+      window.gtag("consent", "default", { analytics_storage: consentCookie === "sdb_analytics_consent=granted" ? "granted" : "denied", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MFMP9Z2P');</script>
+    <!-- End Google Tag Manager -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f3f0" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#101010" media="(prefers-color-scheme: dark)">
+    <meta name="description" content="Entenda o que são skills no Claude Code, como elas orientam tarefas repetidas e quando faz sentido criar uma.">
+    <link rel="canonical" href="https://skillsdebolso.github.io/skills-claude-code/">
+    <title>O que são skills no Claude Code? | Skills de Bolso</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../guias.js" defer></script>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MFMP9Z2P" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="article-shell">
+      <header class="article-header"><a class="article-brand" href="../">SKILLS DE BOLSO</a><a class="article-home" href="../">Página inicial</a></header>
+      <main class="article-main">
+        <p class="article-kicker">Guia de Claude Code</p>
+        <h1>O que são skills no Claude Code?</h1>
+        <p class="article-deck">Skills são instruções reutilizáveis que ajudam Claude Code a seguir um jeito definido de fazer tarefas que se repetem.</p>
+        <p class="article-meta">Conteúdo conferido em <time datetime="2026-09-27">27 de setembro de 2026</time>.</p>
+        <article class="article-content">
+          <p>Uma skill reúne instruções em um arquivo chamado <code>SKILL.md</code>. Ela pode também ter arquivos de apoio e scripts. Claude Code pode carregá-la quando o pedido combina com o que ela faz; dependendo da configuração, também é possível chamá-la pelo nome, como um comando.</p>
+          <p>Em vez de repetir a mesma lista de orientações a cada conversa, você pode guardar o passo a passo em uma skill. Por exemplo, uma equipe poderia documentar como revisar uma alteração de código. O exemplo é ilustrativo: a skill só fará o que as instruções e ferramentas disponíveis permitirem.</p>
+
+          <h2>Quando vale criar uma skill?</h2>
+          <p>Uma skill pode ser útil quando você repete um fluxo com frequência, precisa seguir uma checklist ou quer compartilhar instruções de trabalho com outras pessoas do projeto. Se a informação é um fato que deve estar sempre presente, a documentação do projeto pode ser mais adequada; a skill é voltada a um procedimento que Claude usa quando for pertinente.</p>
+
+          <h2>Como uma skill se organiza?</h2>
+          <p>O formato básico é uma pasta com um <code>SKILL.md</code>. Esse arquivo contém metadados em YAML e as instruções em Markdown. Pastas de apoio são opcionais e só devem ser adicionadas quando ajudam o fluxo.</p>
+          <pre><code>minha-skill/
+└── SKILL.md</code></pre>
+          <p>Claude Code permite skills pessoais, de projeto e vindas de plugins. Uma skill de projeto pode ser versionada junto com o repositório; uma skill pessoal fica disponível nos projetos daquele usuário. A escolha depende de quem precisa usar as instruções.</p>
+
+          <h2>O que skills não fazem sozinhas</h2>
+          <p>Uma skill não é um modelo novo nem garante que uma tarefa será concluída corretamente. Ela orienta o agente; o acesso a arquivos, comandos e ferramentas depende do ambiente e das permissões configuradas. Leia e revise skills de terceiros antes de usá-las, especialmente quando incluem scripts.</p>
+
+          <div class="article-callout">Quer ir direto à prática? Veja <a href="../instalar-skills-claude-code/">como instalar uma skill</a> ou <a href="../criar-skills-claude-code/">como criar a sua</a>.</div>
+          <h2>Fontes oficiais</h2>
+          <p>Consulte a <a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener noreferrer">documentação oficial de skills do Claude Code</a> para detalhes atualizados sobre formatos, locais e recursos.</p>
+          <nav class="article-nav" aria-label="Guias relacionados">
+            <a href="../instalar-skills-claude-code/">Próximo: como instalar skills no Claude Code →</a>
+            <a href="../criar-skills-claude-code/">Como criar uma skill no Claude Code →</a>
+            <a href="../skills-codex/">Skills no Codex →</a>
+          </nav>
+        </article>
+      </main>
+      <footer class="article-footer"><span>© 2026 SKILLS DE BOLSO</span><button type="button" id="consent-settings">Configurar analytics</button><a href="../#privacidade">Privacidade e analytics</a></footer>
+    </div>
+    <aside class="consent-panel" id="consent-panel" aria-labelledby="consent-title" hidden>
+      <div class="consent-copy"><h2 id="consent-title">Analytics, só se você quiser.</h2><p>Podemos usar o Google Analytics para entender visitas e cliques. Sua escolha não afeta o acesso ao site. <a href="../#privacidade">Leia o aviso de privacidade.</a></p></div>
+      <div class="consent-actions"><button type="button" data-consent="denied">Rejeitar</button><button type="button" data-consent="granted">Aceitar</button></div>
+    </aside>
+  </body>
+</html>

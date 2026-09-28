@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      var consentCookie = document.cookie.split(";").map(function (item) { return item.trim(); }).find(function (item) { return item.indexOf("sdb_analytics_consent=") === 0; });
+      window.gtag("consent", "default", { analytics_storage: consentCookie === "sdb_analytics_consent=granted" ? "granted" : "denied", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MFMP9Z2P');</script>
+    <!-- End Google Tag Manager -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f3f0" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#101010" media="(prefers-color-scheme: dark)">
+    <meta name="description" content="Aprenda onde colocar uma skill do Claude Code, como reconhecer a estrutura SKILL.md e como conferir se ela foi carregada.">
+    <link rel="canonical" href="https://skillsdebolso.github.io/instalar-skills-claude-code/">
+    <title>Como instalar skills no Claude Code | Skills de Bolso</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../guias.js" defer></script>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MFMP9Z2P" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="article-shell">
+      <header class="article-header"><a class="article-brand" href="../">SKILLS DE BOLSO</a><a class="article-home" href="../">Página inicial</a></header>
+      <main class="article-main">
+        <p class="article-kicker">Guia prático</p>
+        <h1>Como instalar skills no Claude Code</h1>
+        <p class="article-deck">Veja onde salvar uma skill para usar só em um projeto ou em vários projetos seus.</p>
+        <p class="article-meta">Conteúdo conferido em <time datetime="2026-09-27">27 de setembro de 2026</time>.</p>
+        <article class="article-content">
+          <p>Uma skill do Claude Code é uma pasta que contém um arquivo <code>SKILL.md</code>. O local dessa pasta determina onde ela poderá ser usada. Este guia explica como organizar uma skill que você já tenha; a Skills de Bolso ainda não oferece packs para baixar.</p>
+
+          <h2>Escolha onde a skill deve funcionar</h2>
+          <ul>
+            <li><strong>Em um projeto:</strong> coloque a pasta dentro de <code>.claude/skills/</code> no repositório. Assim, a skill pode ser compartilhada com o time quando os arquivos forem versionados.</li>
+            <li><strong>Nos seus projetos locais:</strong> use a pasta pessoal <code>~/.claude/skills/</code>. Ela fica na pasta de usuário do seu computador e não é compartilhada automaticamente com o repositório.</li>
+            <li><strong>Skill de plugin ou sincronizada:</strong> siga o método próprio do plugin ou da conta Claude. Não copie esses arquivos para outra pasta sem conferir como a fonte os atualiza.</li>
+          </ul>
+
+          <h2>Passo a passo para uma skill local</h2>
+          <ol>
+            <li>Obtenha os arquivos de uma fonte em que você confia. Confira a licença e leia as instruções antes de executar scripts.</li>
+            <li>Abra a pasta do projeto ou a pasta pessoal do Claude Code, conforme o alcance desejado.</li>
+            <li>Dentro de <code>.claude/skills/</code> (ou <code>~/.claude/skills/</code>), crie uma pasta própria para a skill.</li>
+            <li>Coloque o arquivo <code>SKILL.md</code> diretamente dentro dela. Arquivos de apoio podem ficar em subpastas.</li>
+            <li>Confira se a estrutura ficou parecida com o exemplo abaixo.</li>
+          </ol>
+          <pre><code>.claude/
+└── skills/
+    └── minha-skill/
+        └── SKILL.md</code></pre>
+
+          <h2>Como conferir se foi carregada</h2>
+          <p>Abra o Claude Code no projeto correspondente e consulte a lista de skills com <code>/skills</code>. Se acabou de criar a pasta e a skill não aparecer, use <code>/reload-skills</code> ou inicie uma nova sessão. Recursos e nomes de comandos podem mudar; confira a documentação oficial para a versão instalada.</p>
+          <div class="article-callout">A pasta correta depende de onde você quer usar a skill. Para um fluxo pessoal, escolha a pasta do usuário; para um fluxo compartilhado com o projeto, escolha <code>.claude/skills/</code> dentro do repositório.</div>
+
+          <h2>Fontes oficiais</h2>
+          <p>Veja a documentação do Claude Code sobre <a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener noreferrer">locais de skills, criação e recarga</a>. Leia os arquivos de qualquer skill de terceiros antes de permitir seu uso.</p>
+          <nav class="article-nav" aria-label="Guias relacionados">
+            <a href="../skills-claude-code/">O que são skills no Claude Code? →</a>
+            <a href="../criar-skills-claude-code/">Como criar uma skill no Claude Code →</a>
+            <a href="../skills-codex/">Skills no Codex →</a>
+          </nav>
+        </article>
+      </main>
+      <footer class="article-footer"><span>© 2026 SKILLS DE BOLSO</span><button type="button" id="consent-settings">Configurar analytics</button><a href="../#privacidade">Privacidade e analytics</a></footer>
+    </div>
+    <aside class="consent-panel" id="consent-panel" aria-labelledby="consent-title" hidden>
+      <div class="consent-copy"><h2 id="consent-title">Analytics, só se você quiser.</h2><p>Podemos usar o Google Analytics para entender visitas e cliques. Sua escolha não afeta o acesso ao site. <a href="../#privacidade">Leia o aviso de privacidade.</a></p></div>
+      <div class="consent-actions"><button type="button" data-consent="denied">Rejeitar</button><button type="button" data-consent="granted">Aceitar</button></div>
+    </aside>
+  </body>
+</html>

@@ -73,3 +73,30 @@ button:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
 @media(max-width:370px){.page-shell{width:calc(100% - 24px)}.intro h1{font-size:60px}.header-note{max-width:105px}.social-links{gap:6px}.wordmark{font-size:9px}}
 @media(prefers-color-scheme:dark){:root{color-scheme:dark;--bg:#101010;--surface:#101010;--ink:#f2f0eb;--muted:#aaa9a5;--line:#42423f;--inverse:#101010;--accent:#f2f0eb;--focus:#a6a6ff}.portrait-frame{background:#101010}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.link-card,.social-link{transition:none}}
+
+/* Guias editoriais */
+.article-shell{width:min(100% - 36px,820px);margin:0 auto}
+.article-header{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:78px;border-bottom:1px solid var(--line)}
+.article-brand{font-size:11px;font-weight:800;letter-spacing:.11em}
+.article-home,.article-nav a,.article-footer a{font-size:12px;text-decoration:underline;text-underline-offset:4px}
+.article-main{padding:clamp(34px,7vw,76px) 0 72px}
+.article-kicker{margin:0 0 14px;color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.article-main h1{max-width:760px;margin:0;font-size:clamp(38px,8vw,72px);line-height:.98;letter-spacing:-.065em}
+.article-deck{max-width:660px;margin:22px 0 0;color:var(--muted);font-size:clamp(18px,3vw,22px);line-height:1.5}
+.article-meta{margin:18px 0 0;color:var(--muted);font-size:12px}
+.article-content{max-width:700px;margin:48px 0 0;font-size:17px;line-height:1.75}
+.article-content h2{margin:48px 0 12px;font-size:clamp(25px,5vw,34px);line-height:1.12;letter-spacing:-.04em}
+.article-content h3{margin:30px 0 8px;font-size:21px;line-height:1.25;letter-spacing:-.025em}
+.article-content p{margin:14px 0}
+.article-content li{margin:8px 0}
+.article-content a{font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.article-content code{padding:.12em .35em;background:var(--surface);border:1px solid var(--line);font-size:.9em}
+.article-content pre{overflow-x:auto;padding:18px;background:var(--surface);border:1px solid var(--line);font-size:14px;line-height:1.55}
+.article-content pre code{padding:0;border:0;background:none}
+.article-callout{margin:26px 0;padding:18px 20px;border-left:3px solid var(--ink);background:var(--surface);font-size:15px;line-height:1.6}
+.article-nav{display:grid;gap:12px;margin-top:56px;padding-top:20px;border-top:1px solid var(--line)}
+.article-nav a{display:block;padding:13px 0}
+.article-footer{display:flex;justify-content:space-between;gap:16px;padding:20px 0;border-top:1px solid var(--line);color:var(--muted)}
+.article-footer span{font-size:10px;font-weight:800;letter-spacing:.1em}
+.article-footer button{border:0;background:none;color:inherit;font:inherit;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+@media(max-width:680px){.article-shell{width:min(100% - 32px,600px)}.article-header{min-height:66px}.article-main{padding-bottom:54px}.article-content{margin-top:36px;font-size:16px;line-height:1.7}.article-content h2{margin-top:38px}.article-footer{align-items:center;flex-wrap:wrap;justify-content:center;text-align:center}}

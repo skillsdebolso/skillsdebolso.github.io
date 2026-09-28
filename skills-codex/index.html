@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      var consentCookie = document.cookie.split(";").map(function (item) { return item.trim(); }).find(function (item) { return item.indexOf("sdb_analytics_consent=") === 0; });
+      window.gtag("consent", "default", { analytics_storage: consentCookie === "sdb_analytics_consent=granted" ? "granted" : "denied", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MFMP9Z2P');</script>
+    <!-- End Google Tag Manager -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f3f0" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#101010" media="(prefers-color-scheme: dark)">
+    <meta name="description" content="Entenda o que são skills no Codex, como o arquivo SKILL.md organiza instruções e onde o Codex encontra skills locais.">
+    <link rel="canonical" href="https://skillsdebolso.github.io/skills-codex/">
+    <title>O que são skills no Codex? | Skills de Bolso</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../guias.js" defer></script>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MFMP9Z2P" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="article-shell">
+      <header class="article-header"><a class="article-brand" href="../">SKILLS DE BOLSO</a><a class="article-home" href="../">Página inicial</a></header>
+      <main class="article-main">
+        <p class="article-kicker">Guia de Codex</p>
+        <h1>O que são skills no Codex?</h1>
+        <p class="article-deck">Uma skill dá ao Codex instruções e recursos para seguir um fluxo de trabalho reutilizável.</p>
+        <p class="article-meta">Conteúdo conferido em <time datetime="2026-09-27">27 de setembro de 2026</time>.</p>
+        <article class="article-content">
+          <p>Uma skill é uma pasta que contém um arquivo <code>SKILL.md</code>. Esse arquivo informa o nome e a descrição da skill e traz as instruções que o Codex deve seguir. A pasta pode incluir scripts, referências e modelos se forem necessários para o trabalho.</p>
+          <p>O Codex pode escolher uma skill quando a tarefa combina com sua descrição. Também é possível chamá-la explicitamente no CLI ou na extensão de IDE pelo nome, com <code>$</code>. Uma skill não garante um resultado: ela orienta o agente, enquanto as ações possíveis dependem das ferramentas e permissões do ambiente.</p>
+
+          <h2>Onde o Codex encontra skills?</h2>
+          <p>Para uma skill de um repositório, a documentação do Codex indica a pasta <code>.agents/skills/</code>. No escopo pessoal, o caminho é <code>~/.agents/skills/</code>. O Codex procura skills do repositório a partir da pasta de trabalho e de suas pastas superiores até a raiz do repositório.</p>
+          <pre><code>meu-projeto/
+└── .agents/
+    └── skills/
+        └── minha-skill/
+            └── SKILL.md</code></pre>
+
+          <h2>O que escrever no SKILL.md?</h2>
+          <p>Use um nome curto e uma descrição específica. Explique em quais pedidos a skill deve ser usada, quais passos seguir e o que fazer quando faltar informação. O Codex também pode carregar arquivos de referência ou scripts da pasta quando o fluxo precisar deles.</p>
+          <div class="article-callout">Mantenha a skill focada em um trabalho. Instruções pequenas costumam ser mais fáceis de testar e manter do que um arquivo que tenta cobrir tudo.</div>
+
+          <h2>Como conferir se funcionou?</h2>
+          <p>Peça ao Codex uma tarefa que corresponda claramente à descrição ou chame a skill de forma explícita com <code>$nome-da-skill</code>. Compare a resposta com o resultado esperado. Se a skill não aparecer após uma mudança, reinicie o Codex e verifique a pasta e o <code>SKILL.md</code>.</p>
+          <p>Skills do Codex e Claude Code usam uma estrutura semelhante baseada em <code>SKILL.md</code>, mas os locais, recursos e regras de cada ferramenta podem variar. Não presuma que uma configuração específica de uma ferramenta vale automaticamente para a outra.</p>
+
+          <h2>Fonte oficial</h2>
+          <p>Consulte o guia oficial da OpenAI para <a href="https://developers.openai.com/codex/skills/" target="_blank" rel="noopener noreferrer">criar, organizar e usar skills no Codex</a>.</p>
+          <nav class="article-nav" aria-label="Guias relacionados">
+            <a href="../skills-claude-code/">O que são skills no Claude Code? →</a>
+            <a href="../instalar-skills-claude-code/">Como instalar skills no Claude Code →</a>
+            <a href="../criar-skills-claude-code/">Como criar uma skill no Claude Code →</a>
+          </nav>
+        </article>
+      </main>
+      <footer class="article-footer"><span>© 2026 SKILLS DE BOLSO</span><button type="button" id="consent-settings">Configurar analytics</button><a href="../#privacidade">Privacidade e analytics</a></footer>
+    </div>
+    <aside class="consent-panel" id="consent-panel" aria-labelledby="consent-title" hidden>
+      <div class="consent-copy"><h2 id="consent-title">Analytics, só se você quiser.</h2><p>Podemos usar o Google Analytics para entender visitas e cliques. Sua escolha não afeta o acesso ao site. <a href="../#privacidade">Leia o aviso de privacidade.</a></p></div>
+      <div class="consent-actions"><button type="button" data-consent="denied">Rejeitar</button><button type="button" data-consent="granted">Aceitar</button></div>
+    </aside>
+  </body>
+</html>
