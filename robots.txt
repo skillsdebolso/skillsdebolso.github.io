@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://skillsdebolso.github.io/sitemap.xml
+Sitemap: https://skillsdebolso.com.br/sitemap.xml

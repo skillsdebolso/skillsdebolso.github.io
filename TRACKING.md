@@ -2,8 +2,8 @@
 
 ## IDs e arquitetura
 
-- Página principal: `https://skillsdebolso.github.io/`
-- Catálogo futuro: `https://skillsdebolso.github.io/packs/`
+- Página principal: `https://skillsdebolso.com.br/`
+- Catálogo futuro: `https://skillsdebolso.com.br/packs/`
 - GTM web container: `GTM-MFMP9Z2P` (conta `6379195381`, container `265348564`)
 - GA4 web stream: `G-MN88MFE9CB` (propriedade `556145475`, fluxo `15854553749`)
 - O site instala somente o GTM. A Google tag e os eventos GA4 pertencem ao container.
@@ -53,7 +53,7 @@ Nenhum evento atual é Key Event: visitar a seção ou clicar num link ainda nã
 
 Usar nos links **das redes para o site**, nunca nos links do site para as redes:
 
-`https://skillsdebolso.github.io/packs/?utm_source=<plataforma>&utm_medium=social&utm_campaign=<slug_da_campanha>`
+`https://skillsdebolso.com.br/packs/?utm_source=<plataforma>&utm_medium=social&utm_campaign=<slug_da_campanha>`
 
 `utm_source`: `instagram`, `tiktok`, `youtube`, `facebook`, `threads` ou `x`. Usar sempre lowercase. `utm_campaign` é o mesmo slug para a mesma campanha em todas as redes. `utm_content` é opcional para distinguir uma peça ou posição, como `bio` e `story`. Não incluir dados pessoais nos valores de UTM.
 
