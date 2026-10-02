@@ -1,69 +1,65 @@
 # Tracking — Skills de Bolso
 
-## IDs e arquitetura
+## Estado e arquitetura
 
-- Página principal: `https://skillsdebolso.com.br/`
-- Catálogo futuro: `https://skillsdebolso.com.br/packs/`
-- GTM web container: `GTM-MFMP9Z2P` (conta `6379195381`, container `265348564`)
-- GA4 web stream: `G-MN88MFE9CB` (propriedade `556145475`, fluxo `15854553749`)
-- O site instala somente o GTM. A Google tag e os eventos GA4 pertencem ao container.
-- `index.html` define Consent Mode antes do snippet GTM. `script.js` concentra os eventos e a escolha de analytics. Não criar outro default de consentimento no GTM.
-- Todas as tags GA4 precisam de **Additional Consent Checks: Require additional consent for tag to fire → `analytics_storage`**. Isso impede hits GA4 antes da aceitação, inclusive pings sem cookie.
+- Site: `https://skillsdebolso.com.br/`; os caminhos antigos devem levar ao domínio novo.
+- GTM: container `GTM-MFMP9Z2P` (conta `6379195381`, container `265348564`). Versão publicada: **2**. Rascunho em `medicao_pt_br` (workspace `4`), aguardando testes e publicação.
+- GA4: propriedade `556145475`, fluxo web `15854553749`, ID `G-MN88MFE9CB`, fuso `America/Sao_Paulo`, moeda `BRL`.
+- Caminho: ação no site → `dataLayer` → gatilho GTM → tag GTM → GA4. O site instala apenas o GTM. A tag principal do GA4 fica no GTM.
+- Nomes próprios: pt-BR, minúsculas, sem acentos e `snake_case`. Tags, gatilhos e variáveis começam com `tag_`, `gatilho_` e `variavel_`. Nomes técnicos do Google (`event`, `analytics_storage`, `page_view`, `scroll`, `click`) não são traduzidos.
 
 ## Consentimento
 
-O cookie próprio `sdb_analytics_consent` guarda `granted` ou `denied` por 180 dias, no caminho `/`. Sem escolha válida, o Consent Mode inicia com `analytics_storage=denied` e o aviso aparece. `ad_storage`, `ad_user_data` e `ad_personalization` permanecem `denied`. Aceitar ou rejeitar atualiza o consentimento e recarrega a página; no novo carregamento, o estado salvo é aplicado antes do GTM. “Configurar analytics”, no rodapé, permite mudar a escolha. A rejeição não bloqueia a navegação. Na revogação, o recarregamento impede novos disparos das tags GA4.
+`index.html` e as páginas internas definem o Consent Mode **antes** do GTM. O cookie `sdb_analytics_consent` guarda `granted` ou `denied` por 180 dias. Sem aceitação, `analytics_storage` começa em `denied`; os tipos de consentimento para anúncios também permanecem negados. A escolha recarrega a página. “Configurar analytics” permite alterá-la.
 
-O aviso de privacidade fica na seção `#privacidade`. Contato: `skillsdebolso@gmail.com`. O GTM carrega mesmo sem consentimento; as tags GA4 devem respeitar a verificação adicional acima. Não adicionar tags de publicidade sem rever texto, opções e configurações de consentimento.
+Todas as quatro tags GA4 do GTM exigem a verificação adicional `analytics_storage`. Não adicionar outro default de consentimento no GTM. No Preview, confirmar que não há requisições GA4 sem aceitação e que a revogação cessa novos envios após recarregar.
 
-## Taxonomia do site
+## Mapa oficial dos eventos
 
-Nomes de eventos e parâmetros usam inglês, lowercase e `snake_case`. A fonte dos atributos de tracking são `data-track` e os demais atributos `data-*` nos links. URLs das redes continuam centralizadas em `script.js`.
+| Evento | Finalidade e momento | Origem e parâmetros | Tag / gatilho | Onde consultar | Principal? | Responsável pelo dado | Estado |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `page_view` (Google) | Visita a cada página | GA4; parâmetros nativos | `tag_ga4_base` / `gatilho_todas_paginas` | GA4 > Eventos e Páginas | Não | Google tag | Produção v2; nome da tag novo no rascunho |
+| `scroll` (Google) | Indicação simples de leitura | Medição automática do GA4 | Sem tag própria | GA4 > Eventos | Não | GA4 | Ativo; conferir no teste |
+| `clique_ver_packs` | Clique em “Ver os packs” | `script.js` envia `{event}` | `tag_clique_ver_packs` / `gatilho_clique_ver_packs` | GA4 > Eventos | Não | Site | Código local + GTM rascunho |
+| `visualizacao_secao` | Metade de `#packs` visível uma vez por carregamento | `script.js`: `secao=produtos` | `tag_visualizacao_secao` / `gatilho_visualizacao_secao` | GA4 > Eventos; dimensão `secao` | Não | Site | Código local + GTM rascunho |
+| `click` (Google) | Clique em link externo | Medição automática; `outbound`, `link_url` etc. | Sem tag própria | GA4 > Eventos | Não | GA4 | Ativo; conferir no teste |
+| `clique_rede_social` | Comparar redes e posições dos links | `script.js`: `rede_social`, `posicao` | `tag_clique_rede_social` / `gatilho_clique_rede_social` | GA4 > Eventos; dimensões `rede_social` e `posicao` | Não | Site | Código local + GTM rascunho |
 
-| Evento | Disparo | Parâmetros |
+`click` e `clique_rede_social` podem descrever a mesma saída. Para o total de saídas, analisar apenas `click` com `outbound=true`; não somar os dois. O salto para `#packs` não recebe `page_view` manual.
+
+## Dados enviados pelo site
+
+| Chave | Tipo | Quando e valores |
 | --- | --- | --- |
-| `cta_click` | Clique em “Ver os packs” | `cta_name=view_packs`, `cta_location=main_links` |
-| `section_view` | Seção `#packs` com pelo menos 50% visível pela primeira vez na página | `section_name=packs` |
-| `social_click` | Clique em botão ou ícone de rede | `platform` (`instagram`, `tiktok`, `youtube`, `github`, `x`, `threads`, `facebook`), `link_url`, `link_location` (`main_links` ou `social_icons`) |
+| `event` | Texto | Nome da ação em cada `dataLayer.push`; chave técnica exigida pelo GTM |
+| `secao` | Texto | `visualizacao_secao`: `produtos` |
+| `rede_social` | Texto | `clique_rede_social`: `instagram`, `tiktok`, `youtube`, `github`, `x`, `threads` ou `facebook` |
+| `posicao` | Texto | `clique_rede_social`: `lista_principal` ou `icones_sociais` |
 
-O link `#packs` não gera `page_view` manual. O Google tag envia `page_view` ao carregar a página. O Enhanced Measurement do GA4 deve capturar cliques externos como evento automático `click`, com `outbound=true`, `link_url` e `link_domain`. Não criar `outbound_click` nem cadastrar uma dimensão personalizada para `link_url`. Um clique social produzirá `social_click` **e** o evento automático `click`; são visões complementares da mesma interação. Para total de saídas, analisar apenas `click` filtrado por `outbound=true`.
+As três variáveis GTM de camada de dados usam versão 2: `variavel_secao`, `variavel_rede_social` e `variavel_posicao`. Os três gatilhos de evento personalizado comparam `{{_event}}` ao nome exato do evento. A tag principal usa o gatilho de inicialização em todas as páginas. Não criar gatilhos de clique por texto ou CSS.
 
-## Configuração do GTM
+## Configuração do GA4
 
-O container novo foi inspecionado via API e estava vazio. As tags, triggers e variables abaixo foram criadas no `Default Workspace` (ID `2`). Antes de editar novamente, conferir o estado atual via API ou interface e reaproveitar recursos existentes.
+As dimensões personalizadas de escopo **Evento** `secao`, `rede_social` e `posicao` foram criadas pela API. As cinco dimensões antigas (`section_name`, `link_location`, `cta_name`, `platform`, `cta_location`) permanecem para consulta histórica. Seus nomes técnicos não podem ser alterados. A aparição das dimensões novas nos relatórios pode levar até 48 horas e não é retroativa.
 
-| Tag | Tipo | Valor | Trigger | Consentimento adicional |
-| --- | --- | --- | --- | --- |
-| `GA4 - Google Tag` | Google tag | Tag ID `G-MN88MFE9CB` | `Initialization - All Pages - GA4` | `analytics_storage` |
-| `GA4 - Event - CTA Click` | Google Analytics: GA4 Event | Measurement ID `G-MN88MFE9CB`, event name `cta_click`, parâmetros `cta_name`, `cta_location` | `CE - cta_click` | `analytics_storage` |
-| `GA4 - Event - Section View` | Google Analytics: GA4 Event | Measurement ID `G-MN88MFE9CB`, event name `section_view`, parâmetro `section_name` | `CE - section_view` | `analytics_storage` |
-| `GA4 - Event - Social Click` | Google Analytics: GA4 Event | Measurement ID `G-MN88MFE9CB`, event name `social_click`, parâmetros `platform`, `link_url`, `link_location` | `CE - social_click` | `analytics_storage` |
+Manter a medição automática, sem tags extras de aquisição. Campanhas usam UTMs nos **links de divulgação que chegam ao site**, por exemplo `https://skillsdebolso.com.br/?utm_source=instagram&utm_medium=social&utm_campaign=nome_campanha`. Não usar UTM em links que saem do site. Não enviar nomes, e-mails ou outros dados pessoais nos eventos, parâmetros ou UTMs.
 
-Cada trigger `CE - ...` é **Custom Event**, com nome exato igual ao evento, acionado em **All Custom Events**. Criar Data Layer Variables (Version 2) `DLV - cta_name`, `DLV - cta_location`, `DLV - section_name`, `DLV - platform`, `DLV - link_url` e `DLV - link_location`, cada uma com Data Layer Variable Name igual ao sufixo. Mapear cada parâmetro da tag à DLV correspondente. Não criar um trigger de clique baseado em texto/CSS.
+Não marcar os eventos atuais como principais. `purchase`, `qualify_lead` e `close_convert_lead` já existem no GA4 como eventos principais criados pelo sistema, mas não representam funções atuais do site e não receberam eventos nos dados auditados. Só configurar leads, checkout, vendas ou receita quando essas funções e seus dados reais existirem. Nesse momento, avaliar os nomes oficiais do Google `generate_lead`, `view_item`, `begin_checkout` e `purchase`.
 
-No fluxo GA4, a API confirmou `streamEnabled=true` e `outboundClicksEnabled=true` em Enhanced Measurement. Conferir no Preview se mudanças de histórico não geram `page_view` extra ao clicar em `#packs`. Não configurar `debug_mode=true` globalmente.
+## Testes antes de publicar
 
-## GA4
+1. Usar a prévia da branch `migracao-cloudflare-pages` e o Preview do workspace GTM `medicao_pt_br` (ID `4`). O site de produção ainda carrega a versão 2.
+2. Sem aceitar analytics: nenhuma tag GA4 e nenhuma requisição GA4. Depois de aceitar: uma tag principal e um `page_view` por carregamento, inclusive nas páginas internas.
+3. Clicar “Ver os packs”: um `clique_ver_packs`, sem `page_view` extra. Ao mostrar metade da seção, um `visualizacao_secao` com `secao=produtos`. Subir e descer não deve repetir o evento.
+4. Clicar em uma rede na lista e em um ícone: um `clique_rede_social` por clique, com `rede_social` e `posicao` corretos. Conferir `click` automático separadamente.
+5. No Preview, conferir `dataLayer`, gatilhos, variáveis e tags. No DebugView, conferir eventos e parâmetros recebidos. Após rejeitar ou revogar analytics e recarregar, não deve haver novos envios GA4.
+6. Testar desktop e celular. Depois dos testes, publicar o código e uma versão GTM nomeada. Repetir o essencial em produção e registrar aqui o número da versão.
 
-Custom dimensions de escopo **Event** criadas via GA4 Admin API: `platform`, `cta_name`, `cta_location`, `section_name`, `link_location`. O nome do parâmetro é exatamente o da tabela. `link_url` e `link_domain` já têm dimensões nativas para cliques de saída. As dimensões personalizadas podem demorar 24–48 horas para aparecer nos relatórios e não retroagem.
+Para um novo evento, primeiro definir sua utilidade e a origem dos dados. Depois alterar `script.js`/`dataLayer`, ajustar o GTM, testar e atualizar este mapa. Só criar nova dimensão se o parâmetro for útil em relatórios recorrentes.
 
-Nenhum evento atual é Key Event: visitar a seção ou clicar num link ainda não representa compra ou lead qualificado. Quando houver catálogo/checkout real, planejar `view_item`, `begin_checkout` e `purchase` com parâmetros de e-commerce verdadeiros e escolher Key Events a partir do objetivo de negócio. Não enviar PII, incluindo nomes, e-mails ou IDs pessoais, em eventos ou URLs.
+## Registro da publicação
 
-## UTM para divulgação
-
-Usar nos links **das redes para o site**, nunca nos links do site para as redes:
-
-`https://skillsdebolso.com.br/packs/?utm_source=<plataforma>&utm_medium=social&utm_campaign=<slug_da_campanha>`
-
-`utm_source`: `instagram`, `tiktok`, `youtube`, `facebook`, `threads` ou `x`. Usar sempre lowercase. `utm_campaign` é o mesmo slug para a mesma campanha em todas as redes. `utm_content` é opcional para distinguir uma peça ou posição, como `bio` e `story`. Não incluir dados pessoais nos valores de UTM.
-
-## Teste antes de publicar o container
-
-1. Abrir a URL de produção no GTM **Preview / Tag Assistant**. Testar sem cookie de escolha: consentimento negado, aviso visível e nenhuma tag/hit GA4.
-2. Aceitar: página recarrega, Google tag dispara uma vez e `page_view` aparece uma vez no Tag Assistant e GA4 DebugView.
-3. Clicar “Ver os packs”: um `cta_click` com `view_packs`/`main_links`; ao chegar à seção, um `section_view` com `packs`. Subir/descer sem duplicar `section_view`.
-4. Clicar em rede na lista principal e em ícone: `social_click` com plataforma, URL exata e `link_location` correta; um `click` automático por saída, sem `outbound_click` manual.
-5. Rejeitar/revogar: após recarregar, nenhuma tag/hit GA4. Verificar desktop, mobile, console, rede e ausência de overflow.
-6. Publicar o container apenas depois que o Preview mostrar tags e parâmetros corretos. Repetir o teste na versão publicada e registrar o número da versão GTM.
-
-Para adicionar novo evento: definir um nome semântico e parâmetros úteis; adicionar `data-track` ou um único `track()` em `script.js`; criar as DLVs/trigger/tag no GTM; testar consentimento, contagem e parâmetros no Preview e DebugView; atualizar esta tabela. Criar dimensão personalizada só se o parâmetro for necessário para análise recorrente.
+- Código de produção: **pendente**.
+- Versão GTM: **2 em produção; nova versão pendente**.
+- Teste de Preview e DebugView: **pendente**.
+- Conferência por API dos eventos no domínio novo: **pendente**.

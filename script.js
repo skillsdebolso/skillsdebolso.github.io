@@ -54,9 +54,9 @@ const mainLinks = document.querySelector("#main-links");
 primaryOrder.forEach((key, index) => {
   const social = socialLinks[key];
   const link = externalLink(social.url, social.label, "link-card");
-  link.dataset.track = "social_click";
-  link.dataset.platform = key;
-  link.dataset.linkLocation = "main_links";
+  link.dataset.evento = "clique_rede_social";
+  link.dataset.rede_social = key;
+  link.dataset.posicao = "lista_principal";
   const number = document.createElement("span");
   number.className = "link-card-number";
   number.textContent = String(index + 2).padStart(2, "0");
@@ -70,9 +70,9 @@ primaryOrder.forEach((key, index) => {
 const socialNav = document.querySelector("#social-links");
 Object.entries(socialLinks).forEach(([key, social]) => {
   const link = externalLink(social.url, social.label, "social-link");
-  link.dataset.track = "social_click";
-  link.dataset.platform = key;
-  link.dataset.linkLocation = "social_icons";
+  link.dataset.evento = "clique_rede_social";
+  link.dataset.rede_social = key;
+  link.dataset.posicao = "icones_sociais";
   link.append(icon(key));
   socialNav.append(link);
 });
@@ -80,21 +80,17 @@ Object.entries(socialLinks).forEach(([key, social]) => {
 document.querySelector("#year").textContent = new Date().getFullYear();
 
 document.addEventListener("click", (event) => {
-  const link = event.target instanceof Element ? event.target.closest("a[data-track]") : null;
+  const link = event.target instanceof Element ? event.target.closest("a[data-evento]") : null;
   if (!link) return;
 
-  if (link.dataset.track === "cta_click") {
-    track("cta_click", {
-      cta_name: link.dataset.ctaName,
-      cta_location: link.dataset.ctaLocation,
-    });
+  if (link.dataset.evento === "clique_ver_packs") {
+    track("clique_ver_packs", {});
   }
 
-  if (link.dataset.track === "social_click") {
-    track("social_click", {
-      platform: link.dataset.platform,
-      link_url: link.href,
-      link_location: link.dataset.linkLocation,
+  if (link.dataset.evento === "clique_rede_social") {
+    track("clique_rede_social", {
+      rede_social: link.dataset.rede_social,
+      posicao: link.dataset.posicao,
     });
   }
 });
@@ -103,7 +99,7 @@ const packsSection = document.querySelector("#packs");
 if ("IntersectionObserver" in window) {
   const packsObserver = new IntersectionObserver((entries) => {
     if (!entries.some((entry) => entry.isIntersecting && entry.intersectionRatio >= 0.5)) return;
-    track("section_view", { section_name: "packs" });
+    track("visualizacao_secao", { secao: "produtos" });
     packsObserver.disconnect();
   }, { threshold: 0.5 });
   packsObserver.observe(packsSection);
