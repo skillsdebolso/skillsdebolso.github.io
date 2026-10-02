@@ -8,6 +8,8 @@ A versão **2** publicada do GTM contém quatro tags GA4: uma Google tag e três
 
 O workspace `medicao_pt_br` (ID `4`) é um rascunho separado e conserva a mesma exigência de consentimento. Sua publicação continua pendente dos testes de Preview e DebugView.
 
+**Fora do GTM:** o domínio público também recebe automaticamente um script de Cloudflare Web Analytics (`static.cloudflareinsights.com/beacon.min.js`). Ele não consta no repositório nem nas quatro tags GTM e não é controlado pelo banner atual; a Cloudflare o injeta no HTML. Sua documentação afirma que Web Analytics não coleta nem usa dados pessoais de visitantes e que o beacon envia dados ao endpoint `/cdn-cgi/rum`, e esse beacon é configurado para enviar medições mesmo sem o aceite do banner. A classificação jurídica e a transparência do aviso público merecem revisão específica antes de mudar essa configuração. O aviso atual menciona apenas Google Analytics. Não confundir esse beacon com o GA4 bloqueado.
+
 ## O que é regra e o que é escolha
 
 A LGPD não exige consentimento para absolutamente toda medição. A ANPD admite legítimo interesse para medição de audiência em certos contextos, sobretudo quando os dados são agregados, limitados a tendências e não combinados com perfis ou outros rastreamentos. Isso depende de avaliação e documentação específicas; não libera automaticamente o GA4 atual. Cookies estritamente necessários podem ter outra base legal. Publicidade e perfis comportamentais apresentam riscos maiores.
@@ -20,6 +22,8 @@ O bloqueio completo das tags GA4 antes do aceite é a escolha conservadora feita
 
 - [ANPD — Guia de cookies e proteção de dados pessoais](https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/guia-orientativo-cookies-e-protecao-de-dados-pessoais.pdf/@@display-file/file)
 - [ANPD — Guia de legítimo interesse](https://www.gov.br/anpd/pt-br/assuntos/noticias/anpd-lanca-guia-orientativo-sobre-legitimo-interesse)
+- [Cloudflare — Web Analytics](https://developers.cloudflare.com/web-analytics/about/)
+- [Cloudflare — Origem e coleta de dados](https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/)
 - [Google — Verificações adicionais de consentimento no GTM](https://support.google.com/tagmanager/answer/10718549?hl=pt-BR)
 - [Google — Consent Mode básico e avançado](https://developers.google.com/tag-platform/security/concepts/consent-mode)
 - [Google — Critérios da modelagem comportamental no GA4](https://support.google.com/analytics/answer/11161109?hl=pt-BR)
